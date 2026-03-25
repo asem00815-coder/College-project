@@ -18,7 +18,7 @@ def get_collection():
 
 def add_documents(chunks: list[dict], embeddings: list):
     collection = get_collection()
-    
+
     collection.add(
         ids=[c["id"] for c in chunks],
         embeddings=embeddings,
@@ -28,8 +28,10 @@ def add_documents(chunks: list[dict], embeddings: list):
 
 def search_similar(query_embedding: list, top_k: int = 3):
     collection = get_collection()
+    
     results = collection.query(
         query_embeddings=[query_embedding],
         n_results=top_k
     )
+
     return results
