@@ -1,6 +1,6 @@
-from backend.embeddings import embed_query
-from backend.database import search_similar
-from backend.config import TOP_K
+from embeddings import embed_query
+from database import search_similar
+from config import TOP_K
 
 def retrieve_context(query: str) -> tuple[str, list[str]]:
     query_embedding = embed_query(query)

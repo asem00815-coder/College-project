@@ -1,6 +1,6 @@
-from backend.config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP
-from backend.embeddings import embed_texts
-from backend.database import add_documents, get_collection
+from config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP
+from embeddings import embed_texts
+from database import add_documents, get_collection
 
 from fastapi import APIRouter, HTTPException
 

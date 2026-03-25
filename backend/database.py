@@ -1,5 +1,5 @@
 import chromadb
-from backend.config import CHROMA_DIR
+from config import CHROMA_DIR
 
 _collection, _client = None, None
 
@@ -28,7 +28,7 @@ def add_documents(chunks: list[dict], embeddings: list):
 
 def search_similar(query_embedding: list, top_k: int = 3):
     collection = get_collection()
-    
+
     results = collection.query(
         query_embeddings=[query_embedding],
         n_results=top_k
