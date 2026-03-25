@@ -29,7 +29,10 @@ def chat(request: ChatRequest):
     prompt = build_prompt(request.message, context)
 
     llm = get_llm()
-    output = llm(prompt, max_new_tokens=512, do_sample=False)
+    output = llm(prompt,
+                 max_new_tokens=512,
+                 do_sample=False)
+    
     answer = output[0]["generated_text"][len(prompt):].strip()
 
     return ChatResponse(answer=answer, sources=sources)

@@ -15,12 +15,12 @@ def retrieve_context(query: str) -> tuple[str, list[str]]:
     return context, sources
 
 def build_prompt(query: str, context: str) -> str:
-    return f"""Ты ассистент по историческим фактам удельных центров россии. Отвечай на русском языке на основе предоставленного контекста.
-Если ответа нет в контексте скажи об этом честно.
-
-Контекст:
-{context}
-
-Вопрос: {query}
-
-Ответ:"""
+    return f"""<|im_start|>system
+Ты помощник по истории. Отвечай ТОЛЬКО на основе текста ниже. 
+Если информации нет, ответь: "В предоставленных документах нет ответа".
+КОНТЕКСТ:
+{context}<|im_end|>
+<|im_start|>user
+{query}<|im_end|>
+<|im_start|>assistant
+"""

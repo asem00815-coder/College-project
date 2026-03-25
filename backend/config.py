@@ -5,7 +5,7 @@ DATA_DIR = BASE_DIR / "data"
 CHROMA_DIR = BASE_DIR / "chroma_db"
 
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-LLM_MODEL = "microsoft/Phi-3-mini-4k-instruct"
+LLM_MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
 
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
