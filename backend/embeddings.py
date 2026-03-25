@@ -1,0 +1,20 @@
+from sentence_transformers import SentenceTransformer
+from config import EMBEDDING_MODEL
+
+_model = None
+
+def get_embedding_model():
+    global _model
+    
+    if _model is None:
+        _model = SentenceTransformer(EMBEDDING_MODEL)
+
+    return _model
+
+def embed_texts(texts: list[str]) -> list:
+    model = get_embedding_model()
+    return model.encode(texts, show_progress_bar=True).tolist()
+
+def embed_query(query: str) -> list:
+    model = get_embedding_model()
+    return model.encode([query])[0].tolist()

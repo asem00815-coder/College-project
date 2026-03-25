@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sentence-transformers
+chromadb
+transformers
+torch
+pydantic
+accelerate
+einops
