@@ -34,7 +34,7 @@ def load_documents():
     if not DATA_DIR.exists():
         raise HTTPException(status_code=404, detail="Папка data не найдена")
 
-    txt_files = list(DATA_DIR.glob("*.txt"))
+    txt_files = list(DATA_DIR.glob("**/*.txt"))
     if not txt_files:
         raise HTTPException(status_code=404, detail="Нет .txt файлов в папке data")
 
