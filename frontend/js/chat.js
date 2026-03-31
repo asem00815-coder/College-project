@@ -24,7 +24,7 @@ function addMessage(text, role, sources = []) {
 
     let sourcesHtml = "";
     if (sources.length > 0) {
-        sourcesHtml = `<div class="sources">${sources.join(", ")}</div>`;
+        sourcesHtml = `<div class="sources">Source: ${sources.join(", ")}</div>`;
     }
 
     div.innerHTML = `
