@@ -5,28 +5,26 @@ const inputEl = document.getElementById("input");
 const sendBtn = document.getElementById("send-btn");
 const statusEl = document.getElementById("status");
 
-// Проверяем статус при загрузке
 async function checkStatus() {
     try {
         const data = await getStatus();
         if (data.total_chunks > 0) {
-            statusEl.textContent = `🟢 ${data.total_chunks} чанков загружено`;
+            statusEl.textContent = "🟢";
         } else {
-            statusEl.textContent = "🔴 Документы не загружены";
+            statusEl.textContent = "🔴";
         }
     } catch {
-        statusEl.textContent = "🔴 Сервер недоступен";
+        statusEl.textContent = "🔴";
     }
 }
 
-// Добавить сообщение в чат
 function addMessage(text, role, sources = []) {
     const div = document.createElement("div");
     div.className = `message ${role}`;
 
     let sourcesHtml = "";
     if (sources.length > 0) {
-        sourcesHtml = `<div class="sources">📄 ${sources.join(", ")}</div>`;
+        sourcesHtml = `<div class="sources">${sources.join(", ")}</div>`;
     }
 
     div.innerHTML = `
@@ -38,11 +36,10 @@ function addMessage(text, role, sources = []) {
     messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
-// Показать индикатор загрузки
 function addLoading() {
     const div = document.createElement("div");
     div.className = "message bot loading";
-    div.innerHTML = `<div class="bubble">...</div>`;
+    div.innerHTML = `<div class="bubble"><span></span><span></span><span></span></div>`;
     div.id = "loading";
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
@@ -53,7 +50,6 @@ function removeLoading() {
     if (el) el.remove();
 }
 
-// Отправить сообщение
 async function send() {
     const text = inputEl.value.trim();
     if (!text) return;
@@ -80,12 +76,9 @@ async function send() {
     inputEl.focus();
 }
 
-// Enter для отправки
-inputEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        send();
-    }
+inputEl.addEventListener("input", () => {
+    inputEl.style.height = "auto";
+    inputEl.style.height = inputEl.scrollHeight + "px";
 });
 
 sendBtn.addEventListener("click", send);
