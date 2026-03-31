@@ -1,8 +1,8 @@
 from fastapi import APIRouter
-from models.documents import ChatRequest, ChatResponse
-from rag import retrieve_context, build_prompt
+from backend.models.documents import ChatRequest, ChatResponse
+from backend.rag import retrieve_context, build_prompt
 from transformers import pipeline
-from config import LLM_MODEL
+from backend.config import LLM_MODEL, MAX_HISTORY, MAX_NEW_TOKENS
 import torch
 
 router = APIRouter()
@@ -16,9 +16,9 @@ def get_llm():
         _llm = pipeline(
             "text-generation",
             model=LLM_MODEL,
-            torch_dtype=torch.float32,
+            dtype=torch.float32,
             device_map="cpu",
-            trust_remote_code=True
+            max_new_tokens=MAX_NEW_TOKENS
         )
     
     return _llm
@@ -26,12 +26,10 @@ def get_llm():
 @router.post("/", response_model=ChatResponse)
 def chat(request: ChatRequest):
     context, sources = retrieve_context(request.message)
-    prompt = build_prompt(request.message, context)
+    prompt = build_prompt(request.message, context, request.history[-MAX_HISTORY:])
 
     llm = get_llm()
-    output = llm(prompt,
-                 max_new_tokens=512,
-                 do_sample=False)
+    output = llm(prompt, do_sample=False)
     
     answer = output[0]["generated_text"][len(prompt):].strip()
 
