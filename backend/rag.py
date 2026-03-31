@@ -1,6 +1,6 @@
 from backend.embeddings import embed_query
 from backend.database import search_similar
-from backend.config import TOP_K
+from backend.config import TOP_K, MAX_HISTORY
 
 def retrieve_context(query: str) -> tuple[str, list[str]]:
     query_embedding = embed_query(query)
@@ -16,17 +16,17 @@ def retrieve_context(query: str) -> tuple[str, list[str]]:
 
 def build_prompt(query: str, context: str, history: list = []) -> str:
     history_text = ""
-    for msg in history:
+    for msg in history[-MAX_HISTORY:]:
         role = "Пользователь" if msg["role"] == "user" else "Ассистент"
         history_text += f"{role}: {msg['content']}\n"
 
-    return f"""Ты helpful ассистент. Отвечай на русском языке на основе контекста.
-Если ответа нет в контексте — скажи об этом честно.
-
-Контекст:
-{context}
-
-История диалога:
-{history_text}
-Пользователь: {query}
-Ассистент:"""
+    return f"""<|im_start|>system
+Ты helpful ассистент. Отвечай кратко на русском языке.
+Если вопрос не по документам — отвечай честно из общих знаний.
+Контекст из документов: {context if context else 'нет'}
+<|im_end|>
+<|im_start|>user
+{history_text}Пользователь: {query}
+<|im_end|>
+<|im_start|>assistant
+"""

@@ -1,5 +1,5 @@
 import chromadb
-from backend.config import CHROMA_DIR
+from backend.config import CHROMA_DIR, TOP_K
 
 _collection, _client = None, None
 
@@ -26,7 +26,7 @@ def add_documents(chunks: list[dict], embeddings: list):
         metadatas=[{"source": c["source"], "chunk_index": c["chunk_index"]} for c in chunks]
     )
 
-def search_similar(query_embedding: list, top_k: int = 3):
+def search_similar(query_embedding: list, top_k: int = TOP_K):
     collection = get_collection()
 
     results = collection.query(
@@ -35,3 +35,9 @@ def search_similar(query_embedding: list, top_k: int = 3):
     )
 
     return results
+
+def clear_collection():
+    collection = get_collection()
+    ids = collection.get()["ids"]
+    if ids:
+        collection.delete(ids=ids)
