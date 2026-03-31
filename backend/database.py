@@ -1,5 +1,5 @@
 import chromadb
-from config import CHROMA_DIR
+from backend.config import CHROMA_DIR
 
 _collection, _client = None, None
 

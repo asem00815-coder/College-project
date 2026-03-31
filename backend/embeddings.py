@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-from config import EMBEDDING_MODEL
+from backend.config import EMBEDDING_MODEL
 
 _model = None
 

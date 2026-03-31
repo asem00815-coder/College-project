@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import chat, data
+from backend.routes import chat, data
 
 app = FastAPI(title="RAG Backend")
 

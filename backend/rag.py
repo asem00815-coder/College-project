@@ -1,6 +1,6 @@
-from embeddings import embed_query
-from database import search_similar
-from config import TOP_K
+from backend.embeddings import embed_query
+from backend.database import search_similar
+from backend.config import TOP_K
 
 def retrieve_context(query: str) -> tuple[str, list[str]]:
     query_embedding = embed_query(query)
@@ -14,13 +14,19 @@ def retrieve_context(query: str) -> tuple[str, list[str]]:
 
     return context, sources
 
-def build_prompt(query: str, context: str) -> str:
-    return f"""<|im_start|>system
-Ты помощник по истории. Отвечай ТОЛЬКО на основе текста ниже. 
-Если информации нет, ответь: "В предоставленных документах нет ответа".
-КОНТЕКСТ:
-{context}<|im_end|>
-<|im_start|>user
-{query}<|im_end|>
-<|im_start|>assistant
-"""
+def build_prompt(query: str, context: str, history: list = []) -> str:
+    history_text = ""
+    for msg in history:
+        role = "Пользователь" if msg["role"] == "user" else "Ассистент"
+        history_text += f"{role}: {msg['content']}\n"
+
+    return f"""Ты helpful ассистент. Отвечай на русском языке на основе контекста.
+Если ответа нет в контексте — скажи об этом честно.
+
+Контекст:
+{context}
+
+История диалога:
+{history_text}
+Пользователь: {query}
+Ассистент:"""
