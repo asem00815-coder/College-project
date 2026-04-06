@@ -1,0 +1,28 @@
+#Novgorod {
+            cursor: pointer;
+            transition: fill 0.3s ease;
+}
+
+#Novgorod:hover {
+            fill: #54ff9f;
+            stroke: #800020;
+            stroke-width: 2px;
+}
+#Vladimir-suzdalsk {
+            cursor: pointer;
+            transition: fill 0.3s ease;
+}
+    #Vladimir-suzdalsk:hover {
+        fill: #213499;
+        stroke: #800020;
+        stroke-width: 2px;
+}
+#Galicia {
+            cursor: pointer;
+            transition: fill 0.3s ease;
+}
+        #Galicia:hover {
+            fill: #8371c9;
+            stroke: #800020;
+            stroke-width: 2px;
+}
