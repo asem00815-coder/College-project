@@ -16,7 +16,7 @@ def get_llm():
         _llm = pipeline(
             "text-generation",
             model=LLM_MODEL,
-            dtype=torch.float32,
+            dtype=torch.bfloat16,
             device_map="cpu",
             max_new_tokens=MAX_NEW_TOKENS
         )
