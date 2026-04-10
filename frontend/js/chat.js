@@ -9,12 +9,15 @@ async function checkStatus() {
     try {
         const data = await getStatus();
         if (data.total_chunks > 0) {
-            statusEl.textContent = "🟢";
+            statusEl.style.color = 'green'
+            statusEl.textContent = "SUCCESS";
         } else {
-            statusEl.textContent = "🔴";
+            statusEl.style.color = 'red'
+            statusEl.textContent = "ERROR";
         }
     } catch {
-        statusEl.textContent = "🔴";
+        statusEl.style.color = 'red'
+        statusEl.textContent = "ERROR";
     }
 }
 

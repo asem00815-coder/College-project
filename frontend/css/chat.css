@@ -232,5 +232,6 @@ button:disabled {
 }
 
 #status {
+    color: white;
     font-size: 18px;
 }
