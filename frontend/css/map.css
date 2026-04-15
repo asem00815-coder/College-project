@@ -95,6 +95,9 @@ body {
     white-space: nowrap;
     transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
+.btn a {
+    text-decoration: none;
+}
 
 .btn:hover {
     background: var(--color-surface-2);
