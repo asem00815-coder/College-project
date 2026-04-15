@@ -1,5 +1,4 @@
 :root {
-<<<<<<< HEAD
     --color-bg:         #0a0a0f;
     --color-surface:    #111118;
     --color-surface-2:  #1a1a2e;
@@ -22,30 +21,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-=======
-  --color-bg:         #0a0a0f;
-  --color-surface:    #111118;
-  --color-surface-2:  #1a1a2e;
-  --color-border:     #1e1e2e;
-  --color-border-2:   #1e1e3a;
-  --color-accent:     #2563eb;
-  --color-accent-dim: #1e3a5f;
-  --color-accent-hover: #1d4ed8;
-  --color-fill:       rgba(37, 99, 235, 0.18);
-  --color-fill-hover: rgba(37, 99, 235, 0.65);
-  --color-stroke:     #1e3a5f;
-  --color-stroke-hover: #60a5fa;
-  --color-text:       #e2e8f0;
-  --color-text-muted: #cbd5e1;
-  --color-text-dim:   #475569;
-  --color-text-accent: #3b82f6;
-}
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
 }
 
 html, body {
@@ -68,14 +43,8 @@ body {
 
     gap: 16px;
     padding: 10px 24px;
-<<<<<<< HEAD
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border-2);
-=======
-    border-bottom: 1px solid var(--color-border-2);
-
-    background: var(--color-surface);
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
 }
 
 .logo {
@@ -93,73 +62,37 @@ body {
     justify-content: center;
 
     background: var(--color-accent-dim);
-    border: 1px solid var(--color-border-2);
     border-radius: 8px;
 }
 
-.logo-title {
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: 600;
-<<<<<<< HEAD
-=======
-
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
-    color: var(--color-text);
-}
-
 .logo-subtitle {
-<<<<<<< HEAD
     font-size: 65%;
     color: var(--color-text-dim);
-=======
-    font-size: 70%;
-    color: var(--color-text-dim);
-
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
     margin-top: 1px;
 }
 
 .nav {
     display: flex;
-<<<<<<< HEAD
     gap: 8px;
     flex-wrap: wrap;
-=======
-    flex-wrap: wrap;
-    gap: 8px;
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
 }
 
 .btn {
     display: flex;
     align-items: center;
-<<<<<<< HEAD
 
     gap: 6px;
     padding: 6px 14px;
 
     background: transparent;
-=======
-    padding: 6px 14px;
-    background: transparent;
-    
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
     border: 1px solid var(--color-border-2);
     border-radius: 20px;
 
     font-family: 'Segoe UI', sans-serif;
-<<<<<<< HEAD
     font-size: 80%;
     color: var(--color-text-muted);
     
     white-space: nowrap;
-=======
-    font-size: 0.78rem;
-    color: var(--color-text-muted);
-
-    cursor: pointer;
-
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
     transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
@@ -183,10 +116,6 @@ body {
 
 .map-scroll {
     flex: 1;
-<<<<<<< HEAD
-
-=======
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -196,11 +125,7 @@ body {
     scrollbar-color: var(--color-border-2) transparent;
 }
 
-<<<<<<< HEAD
 .map-scroll::-webkit-scrollbar {width: 7px}
-=======
-.map-scroll::-webkit-scrollbar {width: 7px;}
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
 .map-scroll::-webkit-scrollbar-thumb {
     background: var(--color-border-2);
     border-radius: 3px;
@@ -209,25 +134,13 @@ body {
 .map-wrapper {
     display: flex;
     justify-content: center;
-<<<<<<< HEAD
-=======
-
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
     min-height: 100%;
 }
 
 canvas {
     display: block;
-<<<<<<< HEAD
     width: 100%;
     height: auto;
-=======
-
-    width: 100%;
-    height: auto;
-
-    cursor: pointer;
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
 }
 
 .footer {
@@ -237,17 +150,9 @@ canvas {
 
     padding: 8px 24px;
     background: var(--color-surface);
-<<<<<<< HEAD
     border-top: 1px solid var(--color-border-2);
 
     font-family: 'Segoe UI', sans-serif;
     font-size: 75%;
-=======
-
-    border-top: 1px solid var(--color-border-2);
-
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 70%;
->>>>>>> 97bf84623e7545550ea223c2ffe033feb6aba91a
     color: var(--color-text-dim);
 }
