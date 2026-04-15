@@ -6,11 +6,8 @@ from fastapi import APIRouter, HTTPException
 
 from pathlib import Path
 import uuid
-import asyncio
 
 router = APIRouter()
-
-_load_semaphore = asyncio.Semaphore(1)
 
 def chunk_text(text: str, source: str) -> list[dict]:
     chunks = []
@@ -31,7 +28,8 @@ def chunk_text(text: str, source: str) -> list[dict]:
         index += 1
     return chunks
 
-async def process_documents():
+@router.post("/load")
+async def load_documents():
     collection = get_collection()
     if collection.count() > 0:
         raise HTTPException(status_code=400, detail="Документы уже загружены.")
@@ -52,27 +50,19 @@ async def process_documents():
     embeddings = embed_texts([c["text"] for c in all_chunks])
     add_documents(all_chunks, embeddings)
 
-    return {"status": "ok",
-            "loaded_files": [f.name for f in txt_files],
-            "total_chunks": len(all_chunks)
-    }
-
-@router.post("/load")
-async def load_documents():
-    async with _load_semaphore:
-        try:
-            return await asyncio.to_thread(process_documents)
-        except HTTPException:
-            raise
-        except Exception as e:
-            raise HTTPException(500, f"Ошибка при загрузке документов: {str(e)}")
+    collection = get_collection()
+    if collection.count() > 0:
+        raise HTTPException(status_code=400, detail="Документы уже загружены.")
+    
+    embeddings = embed_texts([c["text"] for c in all_chunks])
+    add_documents(all_chunks, embeddings)
 
 @router.get("/status")
-async def get_status():
-    collection = await asyncio.to_thread(get_collection)
+def get_status():
+    collection = get_collection()
     return {"total_chunks": collection.count()}
 
 @router.delete("/clear")
-async def clear_documents():
-    await asyncio.to_thread(clear_collection)
+def clear_documents():
+    clear_collection()
     return {"status": "ok", "message": "База очищена"}
