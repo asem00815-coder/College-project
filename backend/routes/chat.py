@@ -4,17 +4,18 @@ from backend.rag import retrieve_context, build_prompt
 from transformers import pipeline
 from backend.config import LLM_MODEL, MAX_HISTORY, MAX_NEW_TOKENS
 import torch
+import asyncio
 
 router = APIRouter()
 
 _llm = None
 
-def get_llm():
+async def get_llm():
     global _llm
 
     if _llm is None:
         _llm = pipeline(
-            "text-generation",
+            task="text-generation",
             model=LLM_MODEL,
             dtype=torch.bfloat16,
             device_map="cpu",
@@ -24,12 +25,16 @@ def get_llm():
     return _llm
 
 @router.post("/", response_model=ChatResponse)
-def chat(request: ChatRequest):
-    context, sources = retrieve_context(request.message)
+async def chat(request: ChatRequest):
+    context, sources = await retrieve_context(request.message)
     prompt = build_prompt(request.message, context, request.history[-MAX_HISTORY:])
 
-    llm = get_llm()
-    output = llm(prompt, do_sample=False)
+    llm = await get_llm()
+    output = await asyncio.to_thread(
+        llm,
+        prompt,
+        do_sample=False
+    )
     
     answer = output[0]["generated_text"][len(prompt):].strip()
 
