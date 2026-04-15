@@ -1,23 +1,31 @@
 new Chart(document.getElementById('barChart'), {
     type: 'bar',
     data: {
-        labels: ['Владимир', 'Новгород', 'Полоцк', 'еще регион'],
+        labels: ['Ростово-суздальское княжество', 'Новгородское княжество', 'Галицко-Волынское княжество'],
         datasets: [{
-            label: 'Экономика регионов',
-            data: [5, 10, 7, 3],
-            backgroundColor: ['red', 'blue', 'green', 'yellow']
+            label: 'Экономика регионов', 
+            data: [9, 7, 9],
+            backgroundColor: ['red', 'blue', 'green']
         }]
     },
+options: {
+    plugins: {
+        title: {
+            display: true,
+            text: 'Экономика регионов' 
+        }
+    }
+}
 });
 
 new Chart(document.getElementById('pieChart'), {
     type: 'pie',
     data: {
-        labels: ['тест1', 'тест2', 'тест3', 'тест4'],
+        labels: ['Ростово-суздальское княжество', 'Новгородское княжество', 'Галицко-Волынское княжество'],
         datasets: [{
-            label: 'Торговля регионов',
-            data: [5, 10, 7, 3],
-            backgroundColor: ['red', 'pink', 'green', 'yellow']
+            label: 'Торговля регионов в процентах',
+            data: [20, 50, 30],
+            backgroundColor: ['red', 'blue', 'green']
         }]
 },
 options: {
