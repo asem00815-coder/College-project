@@ -2,30 +2,38 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>гистограммы Руси</title>
+    <title>Графики Руси</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="graphs.css">
 </head>
-<body>
+<body text="white">
     <header p align="center">
-        <h3>Графики регионов древней руси</h3>
+        <h3>Графики регионов древней Руси</h3>
     </header>
+    <hr>
+    <main p align="center">
     <div class="diagramma">
+        <h3>Экономика регионов</h3>
      <canvas id="barChart"></canvas>
     </div>
-
+    <br>
     <div class="diagramma">
+        <h3>Торговля регионов</h3>
      <canvas id="pieChart"></canvas>
     </div>
 
     <div class="diagramma">
+        <h3>Социальная свобода регионов</h3>
         <canvas id="bar2Chart"></canvas>
     </div>
 
     <div class="diagramma">
+        <h3>Отдельная мощь регионов</h3>
         <canvas id="pie2Chart"></canvas>
     </div>
-
-    <script src="script.js"></script>
+    </main>
+    <footer>
+    <script src="graphs.js"></script>
+    </footer>
 </body>
 </html>

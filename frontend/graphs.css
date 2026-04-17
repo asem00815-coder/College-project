@@ -1,0 +1,9 @@
+.diagramma {
+    max-width: 750px;
+    margin: 0 auto;
+}
+body {
+    background: linear-gradient(rgb(6, 6, 71), black);
+    min-height: 100vh;
+    margin: 0;
+}
