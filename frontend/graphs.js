@@ -3,6 +3,7 @@ new Chart(document.getElementById('barChart'), {
     data: {
         labels: ['Ростово-суздальское княжество', 'Новгородское княжество', 'Галицко-Волынское княжество'],
         datasets: [{ 
+            label: 'Насыщенность внутреннего рынка',
             data: [9, 7, 9],
             borderColor: 'white',
             backgroundColor: ['red', 'blue', 'green']
@@ -38,7 +39,7 @@ options: {
     plugins: {
         title: {
             display: true,
-            text: 'Торговля регионов' 
+            text: 'Доля во внешней торговле' 
         }
     }
 }
@@ -48,7 +49,7 @@ new Chart(document.getElementById('bar2Chart'), {
     data: {
         labels: ['Ростово-суздальское княжество', 'Новгородское княжество', 'Галицко-Волынское княжество'],
         datasets: [{
-            label: 'Социальная свобода', 
+            label: 'Степень ограничения власти князя', 
             data: [3, 10, 5],
             borderColor: 'white',
             backgroundColor: ['red', 'blue', 'green']
@@ -58,7 +59,6 @@ options: {
     plugins: {
         title: {
             display: true,
-            text: 'Экономика регионов' 
         }
     }
 }
@@ -68,7 +68,7 @@ new Chart(document.getElementById('pie2Chart'), {
     data: {
         labels: ['Ростово-суздальское княжество', 'Новгородское княжество', 'Галицко-Волынское княжество'],
         datasets: [{
-            label: 'Отдельная мощь регионов',
+            label: 'Влияние на общерусскую политику',
             data: [9, 5, 9],
             borderColor: 'white',
             backgroundColor: ['red', 'blue', 'green']
@@ -78,7 +78,7 @@ options: {
     plugins: {
         title: {
             display: true,
-            text: 'Отдельная мощь регионов'
+            text: 'Влияние на общерусскую политику'
         }
     }
 }});
