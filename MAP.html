@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Карта Древней Руси</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="frontend/css/map.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+        <img  class="logo-icon" src="" alt="LOGO">
+        <div>
+            <div class="logo-title">Древняя Русь</div>
+            <div class="logo-subtitle">интерактивная карта</div>
+        </div>
+        </div>
+        <nav class="nav">
+        <button class="btn" id="chatBtn">Чат</button>
+        <button class="btn" id="graphicsBtn"><a href="">Графики</a></button>
+        <button class="btn btn--primary" id="infoBtn">О карте</button>
+        </nav>
+    </header>
+    <main class="map-scroll">
+        <div class="map-wrapper">
+        <canvas id="mapCanvas"></canvas>
+        </div>
+    </main>
+    <footer class="footer">
+        <span>Земли IX - XIII вв.</span>
+    </footer>
+    <script src="frontend/js/map.js"></script>
+</body>
+</html>

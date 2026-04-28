@@ -1,12 +1,11 @@
-from config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP
-from embeddings import embed_texts
-from database import add_documents, get_collection
+from backend.config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP
+from backend.embeddings import embed_texts
+from backend.database import add_documents, get_collection, clear_collection
 
 from fastapi import APIRouter, HTTPException
 
 from pathlib import Path
 import uuid
-
 
 router = APIRouter()
 
@@ -30,11 +29,15 @@ def chunk_text(text: str, source: str) -> list[dict]:
     return chunks
 
 @router.post("/load")
-def load_documents():
+async def load_documents():
+    collection = get_collection()
+    if collection.count() > 0:
+        raise HTTPException(status_code=400, detail="Документы уже загружены.")
+
     if not DATA_DIR.exists():
         raise HTTPException(status_code=404, detail="Папка data не найдена")
 
-    txt_files = list(DATA_DIR.glob("*.txt"))
+    txt_files = list(DATA_DIR.glob("**/*.txt"))
     if not txt_files:
         raise HTTPException(status_code=404, detail="Нет .txt файлов в папке data")
 
@@ -47,9 +50,19 @@ def load_documents():
     embeddings = embed_texts([c["text"] for c in all_chunks])
     add_documents(all_chunks, embeddings)
 
-    return {"status": "ok", "loaded_files": txt_files, "total_chunks": len(all_chunks)}
+    collection = get_collection()
+    if collection.count() > 0:
+        raise HTTPException(status_code=400, detail="Документы уже загружены.")
+    
+    embeddings = embed_texts([c["text"] for c in all_chunks])
+    add_documents(all_chunks, embeddings)
 
 @router.get("/status")
 def get_status():
     collection = get_collection()
     return {"total_chunks": collection.count()}
+
+@router.delete("/clear")
+def clear_documents():
+    clear_collection()
+    return {"status": "ok", "message": "База очищена"}

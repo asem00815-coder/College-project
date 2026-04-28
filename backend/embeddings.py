@@ -1,8 +1,7 @@
 from sentence_transformers import SentenceTransformer
-from config import EMBEDDING_MODEL
+from backend.config import EMBEDDING_MODEL
 
 _model = None
-
 def get_embedding_model():
     global _model
     
@@ -13,8 +12,8 @@ def get_embedding_model():
 
 def embed_texts(texts: list[str]) -> list:
     model = get_embedding_model()
-    return model.encode(texts, show_progress_bar=True).tolist()
+    return model.encode(texts, show_progress_bar=True, normalize_embeddings=True).tolist()
 
 def embed_query(query: str) -> list:
     model = get_embedding_model()
-    return model.encode([query])[0].tolist()
+    return model.encode([query], normalize_embeddings=True)[0].tolist()
