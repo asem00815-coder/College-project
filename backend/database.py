@@ -16,8 +16,8 @@ def get_collection():
 
     return _collection
 
-async def add_documents(chunks: list[dict], embeddings: list):
-    collection = await get_collection()
+def add_documents(chunks: list[dict], embeddings: list):
+    collection = get_collection()
 
     collection.add(
         ids=[c["id"] for c in chunks],

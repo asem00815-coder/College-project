@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Poly Редактор — копируй координаты</title>
+    <style>
+        * {
+            user-select: none;
+        }
+        body {
+            font-family: 'Segoe UI', monospace;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            padding: 30px;
+            margin: 0;
+        }
+        .canvas-wrapper {
+            position: relative;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #0f0f1a;
+        }
+        canvas {
+            display: block;
+            cursor: crosshair;
+        }
+        .toolbar {
+            background: #0f0f1a;
+            border-radius: 20px;
+            padding: 20px;
+            width: 320px;
+            color: #eee;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            border: 1px solid #2a2a3c;
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            border-left: 4px solid #ff5555;
+            padding-left: 12px;
+        }
+        .coord-box {
+            background: #0a0a12;
+            border-radius: 14px;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #2c2c3a;
+        }
+        .coord-list {
+            background: #000000aa;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            padding: 10px;
+            border-radius: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            word-break: break-all;
+            color: #bbff99;
+        }
+        button {
+            background: #2c2c3a;
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-family: monospace;
+        }
+        button.primary {
+            background: #ff5555;
+            box-shadow: 0 2px 8px #ff555580;
+        }
+        button.primary:hover {
+            background: #ff7777;
+            transform: scale(0.97);
+        }
+        button:hover {
+            background: #3a3a4e;
+        }
+        textarea {
+            width: 100%;
+            background: #010105;
+            color: #0f0;
+            border: 1px solid #ff5555;
+            border-radius: 14px;
+            padding: 12px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            resize: vertical;
+            margin-top: 10px;
+        }
+        .badge {
+            background: #ff555522;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        hr {
+            border-color: #2c2c3a;
+            margin: 15px 0;
+        }
+        .point-counter {
+            font-size: 13px;
+            background: #00000066;
+            border-radius: 20px;
+            padding: 4px 12px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="canvas-wrapper">
+    <canvas id="imageCanvas" width="800" height="600"></canvas>
+</div>
+
+<div class="toolbar">
+    <h2>✍️ Обведи регион</h2>
+    <div class="badge">🔴 Кликай по контуру (по порядку)</div>
+    
+    <div class="coord-box">
+        <div style="display: flex; justify-content: space-between;">
+            <span>📌 <span id="pointCount">0</span> точек</span>
+            <span class="point-counter">🖱️ левый клик — добавить</span>
+        </div>
+        <div class="coord-list" id="coordListPreview">
+            ⚡ пока нет точек
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button id="copyBtn" class="primary">📋 КОПИРОВАТЬ СПИСОК</button>
+        <button id="undoBtn">↩️ Отменить последнюю</button>
+        <button id="clearBtn">🗑 Очистить всё</button>
+    </div>
+
+    <hr>
+    <div style="font-size: 13px; opacity: 0.8;">⬇️ Готовый список (скопируй отсюда или через кнопку):</div>
+    <textarea id="coordsOutput" rows="3" readonly placeholder="Здесь появится список x,y через запятую..."></textarea>
+    <div style="font-size: 12px; margin-top: 8px; background: #00000055; border-radius: 12px; padding: 6px;">
+        💡 Пример вставки в <strong>area poly</strong>:<br>
+        <code style="color:#ffaa66;">&lt;area shape="poly" coords="X,Y,X,Y,..."&gt;</code>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- ЗАГРУЗИ СВОЮ КАРТИНКУ ----------
+        // 👇👇👇 СЮДА ВСТАВЬ ПУТЬ К СВОЕЙ КАРТЕ 👇👇👇
+        const IMAGE_URL = 'your-map.jpg';   // ⚠️ ЗАМЕНИ НА СВОЮ КАРТИНКУ
+        
+        // ---------- РАЗМЕРЫ КАНВАСА (ОРИГИНАЛЬНЫЕ ПОД КООРДИНАТЫ) ----------
+        const CANVAS_W = 800;
+        const CANVAS_H = 600;
+        
+        const canvas = document.getElementById('imageCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let points = [];   // массив {x, y}
+        
+        // Элементы UI
+        const pointCountSpan = document.getElementById('pointCount');
+        const coordListPreview = document.getElementById('coordListPreview');
+        const coordsOutput = document.getElementById('coordsOutput');
+        const copyBtn = document.getElementById('copyBtn');
+        const undoBtn = document.getElementById('undoBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        
+        // Загружаем картинку на канвас
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = () => {
+            // Рисуем картинку, подгоняем под размер канваса
+            ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+            ctx.drawImage(img, 0, 0, CANVAS_W, CANVAS_H);
+            redrawPolygon();  // если были точки — перерисуем поверх
+        };
+        img.src = IMAGE_URL;
+        
+        // Функция отрисовки красной ломаной и точек
+        function redrawPolygon() {
+            if (!img.complete) return;
+            
+            // заново рисуем картинку (чтобы стереть старые линии)
+            ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+            ctx.drawImage(img, 0, 0, CANVAS_W, CANVAS_H);
+            
+            if (points.length === 0) return;
+            
+            // рисуем линии
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+            ctx.strokeStyle = '#ff4444';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            
+            // рисуем точки + нумерацию
+            for (let i = 0; i < points.length; i++) {
+                const p = points[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 6, 0, 2 * Math.PI);
+                ctx.fillStyle = '#ff3333';
+                ctx.fill();
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px "Segoe UI"';
+                ctx.shadowBlur = 0;
+                ctx.fillText((i+1).toString(), p.x - 5, p.y - 6);
+                
+                // дополнительно белый ободок
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 6, 0, 2 * Math.PI);
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+        }
+        
+        // Обновить текстовый вывод (список координат)
+        function updateTextOutput() {
+            if (points.length === 0) {
+                coordListPreview.innerText = '⚡ пока нет точек';
+                coordsOutput.value = '';
+                pointCountSpan.innerText = '0';
+                return;
+            }
+            
+            // формируем строку вида "x1,y1, x2,y2, x3,y3"
+            const coordArray = points.map(p => `${p.x},${p.y}`);
+            const coordString = coordArray.join(', ');
+            
+            // Для красивого превью с переносами
+            coordListPreview.innerText = coordString.length > 120 ? coordString.slice(0, 120) + '…' : coordString;
+            coordsOutput.value = coordString;
+            pointCountSpan.innerText = points.length;
+        }
+        
+        // Добавление точки по координатам клика (с учётом масштаба, если картинка растянута)
+        function addPointFromClick(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;     // canvas реальная ширина 800 / отображаемая ширина в пикселях
+            const scaleY = canvas.height / rect.height;
+            
+            let canvasX = (clientX - rect.left) * scaleX;
+            let canvasY = (clientY - rect.top) * scaleY;
+            
+            // ограничим в пределах
+            canvasX = Math.min(Math.max(0, canvasX), CANVAS_W);
+            canvasY = Math.min(Math.max(0, canvasY), CANVAS_H);
+            
+            const x = Math.round(canvasX);
+            const y = Math.round(canvasY);
+            
+            points.push({ x, y });
+            redrawPolygon();
+            updateTextOutput();
+        }
+        
+        // Отменить последнюю точку
+        function undoLastPoint() {
+            if (points.length > 0) {
+                points.pop();
+                redrawPolygon();
+                updateTextOutput();
+            }
+        }
+        
+        // Очистить всё
+        function clearAllPoints() {
+            points = [];
+            redrawPolygon();
+            updateTextOutput();
+        }
+        
+        // Скопировать список в буфер
+        function copyCoordList() {
+            if (points.length === 0) {
+                alert('Нет ни одной точки. Сначала кликни по карте.');
+                return;
+            }
+            const coordArray = points.map(p => `${p.x},${p.y}`);
+            const coordString = coordArray.join(',');
+            
+            navigator.clipboard.writeText(coordString).then(() => {
+                // визуальный фидбек на кнопке
+                const originalText = copyBtn.innerText;
+                copyBtn.innerText = '✅ СКОПИРОВАНО!';
+                setTimeout(() => {
+                    copyBtn.innerText = originalText;
+                }, 1200);
+            }).catch(err => {
+                alert('Не удалось скопировать: ' + err);
+            });
+        }
+        
+        // События клика на канвасе
+        canvas.addEventListener('click', (e) => {
+            addPointFromClick(e.clientX, e.clientY);
+        });
+        
+        // Кнопки управления
+        copyBtn.addEventListener('click', copyCoordList);
+        undoBtn.addEventListener('click', undoLastPoint);
+        clearBtn.addEventListener('click', clearAllPoints);
+        
+        // Если картинка не загрузилась — выведем сообщение
+        img.onerror = () => {
+            ctx.fillStyle = '#2a2a3a';
+            ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+            ctx.fillStyle = '#ff8888';
+            ctx.font = '16px monospace';
+            ctx.fillText('❌ Ошибка: картинка не загружена', 50, 300);
+            ctx.fillStyle = '#aaa';
+            ctx.font = '12px monospace';
+            ctx.fillText(`Проверь путь: ${IMAGE_URL}`, 50, 340);
+            ctx.fillText('Смени константу IMAGE_URL на правильный путь к карте', 50, 380);
+        };
+        
+        // начальная прорисовка (пока картинка грузится — серый фон)
+        ctx.fillStyle = '#181826';
+        ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        ctx.fillStyle = '#ccc';
+        ctx.font = '14px monospace';
+        ctx.fillText('Загрузка карты...', 20, 40);
+    })();
+</script>
+</body>
+</html>
