@@ -29,7 +29,7 @@ def chunk_text(text: str, source: str) -> list[dict]:
     return chunks
 
 @router.post("/load")
-async def load_documents():
+def load_documents():
     collection = get_collection()
     if collection.count() > 0:
         raise HTTPException(status_code=400, detail="Документы уже загружены.")
