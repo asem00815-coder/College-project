@@ -1,4 +1,3 @@
-"fastapi[standard]"
 uvicorn
 sentence-transformers
 chromadb
@@ -7,3 +6,4 @@ torch
 pydantic
 accelerate
 einops
+"fastapi[standard]"
