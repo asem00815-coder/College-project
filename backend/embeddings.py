@@ -1,19 +1,19 @@
-from sentence_transformers import SentenceTransformer
-from backend.config import EMBEDDING_MODEL
+import requests
+from backend.config import HF_API_TOKEN, HF_EMBEDDING_MODEL_ID
 
-_model = None
-def get_embedding_model():
-    global _model
-    
-    if _model is None:
-        _model = SentenceTransformer(EMBEDDING_MODEL)
-
-    return _model
+_API_URL = f"https://api-inference.huggingface.co/models/{HF_EMBEDDING_MODEL_ID}"
+_HEADERS = {"Authorization": f"Bearer {HF_API_TOKEN}"}
 
 def embed_texts(texts: list[str]) -> list:
-    model = get_embedding_model()
-    return model.encode(texts, show_progress_bar=True, normalize_embeddings=True).tolist()
+    """Эмбеддинги для списка текстов через HF API."""
+    response = requests.post(
+        _API_URL,
+        headers=_HEADERS,
+        json={"inputs": texts, "wait_for_model": True}
+    )
+    response.raise_for_status()
+    return response.json()
 
 def embed_query(query: str) -> list:
-    model = get_embedding_model()
-    return model.encode([query], normalize_embeddings=True)[0].tolist()
+    """Эмбеддинг одного текста."""
+    return embed_texts([query])[0]
