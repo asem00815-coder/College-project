@@ -1,9 +1,1 @@
-"fastapi[standard]"
-uvicorn
-sentence-transformers
-chromadb
-transformers
-torch
-pydantic
-accelerate
-einops
+uvicorn sentence-transformers chromadb transformers torch pydantic accelerate einops llama-index-vector-stores-qdrant qdrant-client llama-index-core pymupdf "fastapi[standard]" requests groq python-multipart
