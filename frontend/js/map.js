@@ -53,12 +53,6 @@ const REGIONS = [
     {color: "#800080", colorHover: "#6B006B", isCapital: false, name: 'БЕЛАЯ ВЕЖА', pts: parsePoly('996.0,1137.5,1000.0,1140.5,999.0,1146.5,1008.0,1155.5,1022.0,1160.5,1044.0,1149.5,1045.0,1144.5,1055.0,1137.5,1056.0,1119.5,1042.0,1104.5,1004.0,1104.5,999.0,1116.5,994.0,1119.5')},
 ];
 
-/*
-
-
-
-
-*/
 const allPoints = REGIONS.flatMap(r => r.pts);
 const MIN_X = Math.min(...allPoints.map(p => p.x));
 const MIN_Y = Math.min(...allPoints.map(p => p.y));
