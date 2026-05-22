@@ -141,3 +141,53 @@ a:hover {
   color: white ;
   border-radius: 8px;
 }
+.navigationBlock {
+  position: fixed;
+  width: 120px;
+  height: 275px;
+  left: 1px;
+  background: white;
+  border-radius: 15px;
+  top: 30%;
+}
+.navigationBlock a {
+  text-align: center;
+}
+.NavigationNovgorodBlock {
+  padding: 8px;
+  background-color: green;
+  color: white;
+  border-radius: 12px;
+  align-self: center;
+}
+.NavigationSuzdalBlock {
+  padding: 8px;
+  background-color: blue;
+  color: white;
+  border-radius: 12px;
+}
+.NavigationTextBlock {
+  padding: 8px;
+  background-color: orange;
+  color: white;
+  border-radius: 12px;
+}
+.VvedenieBlock {
+  padding: 8px;
+  background-color: cadetblue;
+  color: white;
+  border-radius: 12px;
+}
+.ZakluchenieBlock {
+  padding: 8px;
+  background-color: aquamarine;
+  color: white;
+  border-radius: 12px;
+}
+.NavigationGaliciaBlock {
+  padding: 8px;
+  background-color: red;
+  color: white;
+  border-radius: 12px;
+}
+
