@@ -52,7 +52,7 @@
   text-align: left;
   line-height: 1.5; 
 }
-p, li, ul, h3, h2, h4 {
+p, li, ul {
   font-size: 18px;
   color: white;
 }
@@ -104,10 +104,10 @@ img{
 }
 a {
   text-decoration:none ;
-  color: rgba(27, 2, 255, 0.486);
+  color: rgba(140, 124, 255, 0.486);
 }
 a:hover {
-  color: rgb(6, 6, 71);
+  color: rgb(154, 154, 255);
 
 }
 .block {
@@ -167,38 +167,38 @@ a:hover {
 }
 .NavigationNovgorodBlock {
   padding: 8px;
-  background-color: green;
+  background-color: #1A2F60;
   color: white;
   border-radius: 12px;
   align-self: center;
 }
 .NavigationSuzdalBlock {
   padding: 8px;
-  background-color: blue;
+  background-color: #1A2F60;
   color: white;
   border-radius: 12px;
 }
 .NavigationTextBlock {
   padding: 8px;
-  background-color: orange;
+  background-color: #1A2F60;
   color: white;
   border-radius: 12px;
 }
 .VvedenieBlock {
   padding: 8px;
-  background-color: cadetblue;
+  background-color: #1A2F60;
   color: white;
   border-radius: 12px;
 }
 .ZakluchenieBlock {
   padding: 8px;
-  background-color: orangered;
+  background-color: #1A2F60;
   color: white;
   border-radius: 12px;
 }
 .NavigationGaliciaBlock {
   padding: 8px;
-  background-color: red;
+  background-color: #1A2F60;
   color: white;
   border-radius: 12px;
 }
@@ -217,5 +217,8 @@ html {
   margin: 5px 0;
 }
 strong {
-  color: #8a0000 !important;
+  color: #E6B347 !important;
+}
+h1, h3, h2, h4 {
+  color: white;
 }
