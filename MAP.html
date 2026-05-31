@@ -10,14 +10,17 @@
 <body>
     <header class="header">
         <div class="logo">
-        <img  class="logo-icon" src="" alt="LOGO">
+            <svg class="logo-icon" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path style="color: #1e1e3a;" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle style="color: #1e1e3a;" cx="12" cy="10" r="3"></circle>
+            </svg>
             <div class="logo-title">Древняя Русь</div>
             <div class="logo-subtitle">интерактивная карта</div>
         </div>
-            <nav class="nav">
-            <button class="btn" id="chatBtn"><a href="frontend\gistogramm.html">Чат</a></button>
+        <nav class="nav">
+            <button class="btn" id="chatBtn"><a href="frontend\chat.html">Чат</a></button>
             <button class="btn" id="graphicsBtn"><a href="frontend\gistogramm.html">Графики</a></button>
-            <button class="btn btn--primary" id="infoBtn"><a href="frontend\index.html">Графики</a></button>
+            <button class="btn btn--primary" id="infoBtn"><a href="frontend\index.html">История</a></button>
         </nav>
     </header>
     <main class="map-scroll">
@@ -28,13 +31,14 @@
     <footer class="footer">
         <span>Земли IX - XIII вв.</span>
     </footer>
+
     <div id="regionTooltip"></div>
     <script src="frontend/js/map.js"></script>
-    
+
     <div class="Canvas">
         <h3 style="padding-top: 5px;">Районы</h3>
-        <div>
-            
+        <div class="grad">
+                
         </div>
     </div>
 </body>
