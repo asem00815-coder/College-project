@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000"; // не забыть про HF Spaces ссылку
+const API_URL = "http://127.0.0.1:8000";
 
 async function sendMessage(message, history) {
     const response = await fetch(`${API_URL}/chat/`, {
