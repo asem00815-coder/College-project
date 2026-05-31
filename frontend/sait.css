@@ -26,7 +26,7 @@
 .graphs-button2 {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #28a745;
+  background-color: #2841a7;
   color: #ffffff;
   text-decoration: none;
   border-radius: 8px;
@@ -38,12 +38,12 @@
   cursor: pointer;
 }
   .graphs-button2:hover {
-  background-color: #218838;
+  background-color: #214588;
   transform: translateY(-2px);
 }
 
 .graphs-button2:active {
-  background-color: #1e7e34;
+  background-color: #1e417e;
   transform: translateY(0);
 }
 .content {
@@ -75,13 +75,13 @@ img{
     box-shadow: 0 0 40px rgba(0,0,0,10);
     padding: 20px 0;
     border-radius: 20px;
-    border-color: red;
+    border-color: rgb(0, 13, 255);
 
 }
 .graphs-button3 {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #ff0000;
+  background-color: #0066ff;
   color: #ffffff;
   text-decoration: none;
   border-radius: 8px;
@@ -94,12 +94,12 @@ img{
 }
 
 .graphs-button3:hover {
-  background-color: #b30000;
+  background-color: #0009b3;
   transform: translateY(-2px);
 }
 
 .graphs-button3:active {
-  background-color: #851f00;
+  background-color: #000d85;
   transform: translateY(0);
 }
 a {
@@ -116,18 +116,25 @@ a:hover {
   color: white;
   border-radius: 15px;
 }
+.block:hover {
+  background-color: rgb(39, 39, 39);
+  color: white;
+}
+li {
+  margin: 5px 0px;
+}
 .img {
   border-radius: 20px;
 }
 .GaliciaBlock {
   padding: 12px;
-  background-color: red;
+  background-color: rgb(0, 42, 255);
   color: white;
   border-radius: 15px;
 }
 .NovgorodBlock {
    padding: 12px;
-   background-color:green;
+   background-color:rgb(0, 13, 128);
    color:white;
    border-radius: 15px;
 }
