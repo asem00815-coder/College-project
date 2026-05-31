@@ -54,22 +54,29 @@
 }
 p, li, ul {
   font-size: 18px;
+  color: white;
 }
 body {
-    background-image: url('drevnery.png');
+    background-image: url('https://img.freepik.com/premium-photo/traditional-russian-gzhel-pottery-design-featuring-intricate-patterns-flowers-leaves-b_996093-3329.jpg');
     background-attachment: fixed;
     background-size: cover;
     margin: 0;
+    
+    font-family: 'Segoe UI', sans-serif;
 }
-
+img{
+	width: 100%; height: auto;
+}
 .zagolovok {
     max-width: 1000px;
     margin: 0 auto;
-    background-color: white;
+    background: linear-gradient(rgb(6, 6, 71),black);
     min-height: 100vh;
     box-shadow: 0 0 40px rgba(0,0,0,10);
     padding: 20px 0;
     border-radius: 20px;
+    border-color: red;
+
 }
 .graphs-button3 {
   display: inline-block;
@@ -94,4 +101,124 @@ body {
 .graphs-button3:active {
   background-color: #851f00;
   transform: translateY(0);
+}
+a {
+  text-decoration:none ;
+  color: rgba(140, 124, 255, 0.486);
+}
+a:hover {
+  color: rgb(154, 154, 255);
+
+}
+.block {
+  padding: 12px;
+  background-color: rgb(73, 73, 73);
+  color: white;
+  border-radius: 15px;
+}
+.img {
+  border-radius: 20px;
+}
+.GaliciaBlock {
+  padding: 12px;
+  background-color: red;
+  color: white;
+  border-radius: 15px;
+}
+.NovgorodBlock {
+   padding: 12px;
+   background-color:green;
+   color:white;
+   border-radius: 15px;
+}
+.RostovoBlock {
+  padding:12px ;
+  background-color: blue;
+  color: white;
+  border-radius: 15px;
+}
+.KratkiBlock {
+  padding: 10px;
+  background-color: rgba(83, 72, 72, 0.507);
+  color: white ;
+  border-radius: 8px;
+}
+.navigationBlock {
+  position: fixed;
+  width: 120px;
+  height: auto;
+  left: 1px;
+  background: white;
+  border-radius: 15px;
+  top: 30%;
+  padding-bottom: 15px;
+  display: block;
+  margin: 10px;
+  text-align: center;
+  padding: 10px 0;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(rgb(6, 6, 71), black);
+}
+.navigationBlock a {
+  text-align: center;
+}
+.NavigationNovgorodBlock {
+  padding: 8px;
+  background-color: #1A2F60;
+  color: white;
+  border-radius: 12px;
+  align-self: center;
+}
+.NavigationSuzdalBlock {
+  padding: 8px;
+  background-color: #1A2F60;
+  color: white;
+  border-radius: 12px;
+}
+.NavigationTextBlock {
+  padding: 8px;
+  background-color: #1A2F60;
+  color: white;
+  border-radius: 12px;
+}
+.VvedenieBlock {
+  padding: 8px;
+  background-color: #1A2F60;
+  color: white;
+  border-radius: 12px;
+}
+.ZakluchenieBlock {
+  padding: 8px;
+  background-color: #1A2F60;
+  color: white;
+  border-radius: 12px;
+}
+.NavigationGaliciaBlock {
+  padding: 8px;
+  background-color: #1A2F60;
+  color: white;
+  border-radius: 12px;
+}
+html {
+  scroll-behavior: smooth;
+}
+.navigationBlock a {
+  display: block;
+  margin: 1px;
+  width: 90px;
+  text-align: center;
+}
+.navigationBlock hr {
+  width: 80%;
+  border-top: 1px solid black;
+  margin: 5px 0;
+}
+strong {
+  color: #E6B347 !important;
+}
+h1, h3, h2, h4 {
+  color: white;
 }

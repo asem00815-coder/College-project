@@ -1,19 +1,11 @@
 from sentence_transformers import SentenceTransformer
-from backend.config import EMBEDDING_MODEL
+from backend.config import HF_EMBEDDING_MODEL_ID
 
-_model = None
-def get_embedding_model():
-    global _model
-    
-    if _model is None:
-        _model = SentenceTransformer(EMBEDDING_MODEL)
-
-    return _model
+model = SentenceTransformer(HF_EMBEDDING_MODEL_ID)
 
 def embed_texts(texts: list[str]) -> list:
-    model = get_embedding_model()
-    return model.encode(texts, show_progress_bar=True, normalize_embeddings=True).tolist()
+    embeddings = model.encode(texts)
+    return embeddings.tolist()
 
 def embed_query(query: str) -> list:
-    model = get_embedding_model()
-    return model.encode([query], normalize_embeddings=True)[0].tolist()
+    return embed_texts([query])[0]

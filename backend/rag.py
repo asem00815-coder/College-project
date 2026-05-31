@@ -1,6 +1,9 @@
+from groq import Groq
+from backend.config import GROQ_API_KEY, GROQ_MODEL, TOP_K, MAX_HISTORY, SYSTEM_PROMPT
 from backend.embeddings import embed_query
 from backend.database import search_similar
-from backend.config import TOP_K, MAX_HISTORY
+
+_groq_client = Groq(api_key=GROQ_API_KEY)
 
 def retrieve_context(query: str) -> tuple[str, list[str]]:
     query_embedding = embed_query(query)
@@ -10,23 +13,28 @@ def retrieve_context(query: str) -> tuple[str, list[str]]:
     metadatas = results.get("metadatas", [[]])[0]
 
     context = "\n\n".join(documents)
-    sources = list(set([m["source"] for m in metadatas]))
-
+    sources = list(set(m["source"] for m in metadatas))
     return context, sources
 
-def build_prompt(query: str, context: str, history: list = []) -> str:
-    history_text = ""
-    for msg in history[-MAX_HISTORY:]:
-        role = "Пользователь" if msg["role"] == "user" else "Ассистент"
-        history_text += f"{role}: {msg['content']}\n"
+def build_messages(query: str, context: str, history: list[dict]) -> list[dict]:
+    system_content = f"{SYSTEM_PROMPT}\n\nКонтекст из документов:\n{context}" if context else f"{SYSTEM_PROMPT}\n\nКонтекст: нет"
+    messages = [{"role": "system", "content": system_content}]
 
-    return f"""<|im_start|>system
-Ты helpful ассистент. Отвечай кратко на русском языке.
-Если вопрос не по документам — отвечай честно из общих знаний.
-Контекст из документов: {context if context else 'нет'}
-<|im_end|>
-<|im_start|>user
-{history_text}Пользователь: {query}
-<|im_end|>
-<|im_start|>assistant
-"""
+    for msg in history[-MAX_HISTORY:]:
+        messages.append({"role": msg["role"], "content": msg["content"]})
+
+    messages.append({"role": "user", "content": query})
+    return messages
+
+def generate_answer(query: str, context: str, history: list[dict] = []) -> dict:
+    messages = build_messages(query, context, history)
+    completion = _groq_client.chat.completions.create(
+        model=GROQ_MODEL,
+        messages=messages,
+        temperature=0.4,
+        max_tokens=1024,
+        top_p=0.95,
+        stream=False,
+    )
+    answer = completion.choices[0].message.content
+    return {"answer": answer, "model": completion.model}
