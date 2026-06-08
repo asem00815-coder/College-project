@@ -7,7 +7,7 @@ QDRANT_DIR = BASE_DIR / "qdrant_db"
 HF_API_TOKEN = "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"
 HF_EMBEDDING_MODEL_ID = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "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"
 GROQ_MODEL = "llama-3.1-8b-instant"
 
 CHUNK_SIZE = 500
