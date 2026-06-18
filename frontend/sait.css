@@ -229,3 +229,37 @@ strong {
 h1, h3, h2, h4 {
   color: white;
 }
+.okno1 {
+  position: relative;
+}
+.okno1-box {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  width: 220px;
+  background: linear-gradient(rgb(6, 6, 71),black);
+  border: 1px solid black;
+  padding: 8px;
+  z-index: 10;
+  border-radius: 15px;
+}
+.okno1:hover .okno1-box {
+  display: block;
+}
+.okno2 {
+  position: relative;
+}
+.okno2-box {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  width: 220px;
+  background: linear-gradient(rgb(6, 6, 71),black);
+  border: 1px solid black;
+  padding: 8px;
+  z-index: 10;
+  border-radius: 15px;
+}
+.okno2:hover .okno2-box {
+  display: block;
+}
