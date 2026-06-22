@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+sentence-transformers
+transformers
+torch
+pydantic
+accelerate
+einops
+llama-index-vector-stores-qdrant
+qdrant-client
+llama-index-core
+pymupdf
+requests
+groq
+sniffio
+distro
+python-multipart

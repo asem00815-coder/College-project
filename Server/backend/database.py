@@ -3,7 +3,7 @@ from qdrant_client.http import models as rest
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core.schema import TextNode
 from llama_index.core.vector_stores.types import VectorStoreQuery
-from backend.config import QDRANT_DIR, TOP_K
+from backend.config import QDRANT_URL, QDRANT_API_KEY, TOP_K
 
 _client = None
 _vector_store = None
@@ -24,7 +24,10 @@ def _ensure_collection_exists(dim: int):
 def get_vector_store() -> QdrantVectorStore:
     global _client, _vector_store
     if _vector_store is None:
-        _client = qdrant_client.QdrantClient(path=str(QDRANT_DIR))
+        _client = qdrant_client.QdrantClient(
+            url=QDRANT_URL,
+            api_key=QDRANT_API_KEY
+        )
         _vector_store = QdrantVectorStore(
             client=_client,
             collection_name=COLLECTION_NAME
